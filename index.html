@@ -37,6 +37,7 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Nota</th>
+                    <th>Deletar Nota</th>
                 </thead>
                 <tbody>
 
@@ -44,6 +45,9 @@
                         <td>{{aluno.nome}}</td>
                         <td>{{aluno.email}}</td>
                         <td>{{aluno.nota}}</td>
+                        <td>
+                            <button class="danger" @click="apagarAluno(aluno)">Apagar</button>
+                        </td>
                     </tr>
 
                 </tbody>
@@ -66,9 +70,22 @@
                 ]
             },
             methods: {
+
+                limpaFormulario: function() {
+                    this.form = {
+                        nome: '',
+                    email: '',
+                    nota: ''
+                    }
+                },
                 adicionarContato: function () {
                     //console.log(this.form)
                     this.alunos.push(this.form)
+                    this.limpaFormulario()
+                },
+                apagarAluno: function(aluno) {
+                    var posicao = this.alunos.indexOf(aluno)
+                    this.alunos.splice(posicao, 1)
                 }
             }
         })
@@ -84,10 +101,19 @@
             margin-top: 10px;
         }
 
+        .danger {
+            background-color: #e91e63;
+            border-color: #e91e63;
+            color: #eee
+        }
+
         .table th,
         .table td {
             border-top: 1px solid #ccc;
+        }
 
+        .table th:last-child, .table td:last-child {
+            text-align: right;
         }
 
         input {
